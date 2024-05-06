@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import "./Grid.css";
 import { produce } from "immer";
+import Rules from "../Rules";
 
 export default function Grid() {
   const numRows = 20;
@@ -99,34 +100,40 @@ export default function Grid() {
         </div>
       </div>
 
-      <div style={{marginBottom:'150px'}}>
-        <div className="grid">
-          {grid.map((rows, rowIdx) =>
-            rows.map((col, colIdx) => (
-              <div
-                key={`${rowIdx}-${colIdx}`}
-                style={{
-                  width: 20,
-                  height: 20,
-                  backgroundColor: grid[rowIdx][colIdx] ? "#FFFF96" : undefined,
-                  border: "solid 1px #387DCF",
-                }}
-                onClick={() => {
-                  if (running) {
-                    setError("OOPS! PLEASE PAUSE THE GAME TO CLICK ON MORE CELLS");
-                  } else {
-                    setError("");
-                    const newGrid = produce(grid, (gridCopy) => {
-                      gridCopy[rowIdx][colIdx] = grid[rowIdx][colIdx] ? 0 : 1;
-                    });
-                    setGrid(newGrid);
-                  }
-                }}
-              />
-            ))
-          )}
+      <div style={{ marginBottom: "150px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr" }}>
+          <Rules />
+          <div style={{display:'flex', justifyContent:'center'}}>
+            <div className="grid">
+              {grid.map((rows, rowIdx) =>
+                rows.map((col, colIdx) => (
+                  <div
+                    key={`${rowIdx}-${colIdx}`}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      backgroundColor: grid[rowIdx][colIdx] ? "#FFFF96" : undefined,
+                      border: "solid 1px #387DCF",
+                    }}
+                    onClick={() => {
+                      if (running) {
+                        setError("OOPS! PLEASE PAUSE THE GAME TO CLICK ON MORE CELLS");
+                      } else {
+                        setError("");
+                        const newGrid = produce(grid, (gridCopy) => {
+                          gridCopy[rowIdx][colIdx] = grid[rowIdx][colIdx] ? 0 : 1;
+                        });
+                        setGrid(newGrid);
+                      }
+                    }}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+          <div></div>
         </div>
-        {error && <div style={{ color: "white", marginBottom:'5px', marginTop: "5px" }}>{error}</div>}
+        {error && <div style={{ color: "white", marginBottom: "5px", marginTop: "5px" }}>{error}</div>}
       </div>
     </div>
   );
