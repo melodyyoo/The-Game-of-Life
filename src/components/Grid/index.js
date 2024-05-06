@@ -5,30 +5,65 @@ import { produce } from "immer";
 export default function Grid() {
   const numRows = 20;
   const numCols = 20;
-  const [grid, setGrid] = useState(() => {
+
+  const operations = [
+    [0, 1],
+    [0, -1],
+    [-1, -1],
+    [1, -1],
+    [-1, 1],
+    [1, 1],
+    [-1, 0],
+    [1, 0],
+  ];
+
+  const newGrid = () => {
     const rows = [];
     for (let i = 0; i < numRows; i++) {
       rows.push(Array.from(Array(numCols), () => 0));
     }
     return rows;
-  });
+  };
 
-  const [running, setRunning] = useState();
+  const [grid, setGrid] = useState(newGrid());
 
-  const runningRef = useRef(running =>{
-    runningRef.current = running
-  })
+  const [running, setRunning] = useState(false);
 
-  const runSimulation = useCallback(() =>{
-    if(!runningRef){
+  const runningRef = useRef(running);
+  runningRef.current = running;
+
+  const runSimulation = useCallback(() => {
+    if (!runningRef.current) {
       return;
     }
 
-    setTimeout(runSimulation, 1000);
-  }, [])
+    setGrid((g) => {
+      return produce(g, (gridCopy) => {
+        for (let i = 0; i < numRows; i++) {
+          for (let j = 0; j < numCols; j++) {
+            let neighbors = 0;
+            operations.forEach(([x, y]) => {
+              const newI = x + i;
+              const newJ = j + y;
+              if (newI >= 0 && newI < numRows && newJ >= 0 && newJ < numCols) {
+                neighbors += g[newI][newJ];
+              }
+            });
+            if (neighbors < 2 || neighbors > 3) {
+              gridCopy[i][j] = 0;
+            } else if (g[i][j] === 0 && neighbors === 3) {
+              gridCopy[i][j] = 1;
+            }
+          }
+        }
+      });
+    });
+
+    setTimeout(runSimulation, 500);
+  }, []);
 
   return (
-    <div style={{display: 'flex', justifyContent:"center"}}>
+    <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
       <div className="grid">
         {grid.map((rows, rowIdx) =>
           rows.map((col, colIdx) => (
@@ -50,9 +85,24 @@ export default function Grid() {
           ))
         )}
       </div>
-      <button className="start-button" onClick={()=> setRunning(!running)}>
-        {running? 'Stop' : 'Start'}
-      </button>
+      <div>
+        <button
+          className="button"
+          onClick={() => {
+            setRunning(!running);
+            if (!running) {
+              runningRef.current = true;
+              runSimulation();
+            }
+          }}
+        >
+          {running ? <i class="fa-solid fa-pause" style={{ color: "#9bb5f4" }}/>
+ : <i class="fa-solid fa-play" style={{color:"#9bb5f4"}}/>}
+        </button>
+        <button className="button" onClick={() => setGrid(newGrid())}>
+          Reset
+        </button>
+      </div>
     </div>
   );
 }
