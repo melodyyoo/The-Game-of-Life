@@ -29,6 +29,8 @@ export default function Grid() {
 
   const [running, setRunning] = useState(false);
 
+  const [error, setError] = useState("");
+
   const runningRef = useRef(running);
   runningRef.current = running;
 
@@ -64,44 +66,67 @@ export default function Grid() {
 
   return (
     <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
-      <div className="grid">
-        {grid.map((rows, rowIdx) =>
-          rows.map((col, colIdx) => (
-            <div
-              key={`${rowIdx}-${colIdx}`}
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: grid[rowIdx][colIdx] ? "pink" : undefined,
-                border: "solid 1px black",
-              }}
-              onClick={() => {
-                const newGrid = produce(grid, (gridCopy) => {
-                  gridCopy[rowIdx][colIdx] = grid[rowIdx][colIdx] ? 0 : 1;
-                });
-                setGrid(newGrid);
-              }}
-            />
-          ))
-        )}
+      <div style={{ display: "flex" }}>
+        <h1 style={{ color: "white" }}>THE GAME OF LIFE</h1>
+        <div>
+          <button
+            className="button"
+            onClick={() => {
+              setRunning(!running);
+              if (!running) {
+                setError("");
+                runningRef.current = true;
+                runSimulation();
+              }
+            }}
+          >
+            {running ? (
+              <i class="fa-solid fa-pause" style={{ color: "#9bb5f4" }} />
+            ) : (
+              <i class="fa-solid fa-play" style={{ color: "#9bb5f4" }} />
+            )}
+          </button>
+          <button
+            className="button"
+            onClick={() => {
+              setError("");
+              setGrid(newGrid());
+              setRunning(false);
+            }}
+          >
+            Reset
+          </button>
+        </div>
       </div>
-      <div>
-        <button
-          className="button"
-          onClick={() => {
-            setRunning(!running);
-            if (!running) {
-              runningRef.current = true;
-              runSimulation();
-            }
-          }}
-        >
-          {running ? <i class="fa-solid fa-pause" style={{ color: "#9bb5f4" }}/>
- : <i class="fa-solid fa-play" style={{color:"#9bb5f4"}}/>}
-        </button>
-        <button className="button" onClick={() => setGrid(newGrid())}>
-          Reset
-        </button>
+
+      <div style={{marginBottom:'150px'}}>
+        <div className="grid">
+          {grid.map((rows, rowIdx) =>
+            rows.map((col, colIdx) => (
+              <div
+                key={`${rowIdx}-${colIdx}`}
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: grid[rowIdx][colIdx] ? "#FFFF96" : undefined,
+                  border: "solid 1px #387DCF",
+                }}
+                onClick={() => {
+                  if (running) {
+                    setError("OOPS! PLEASE PAUSE THE GAME TO CLICK ON MORE CELLS");
+                  } else {
+                    setError("");
+                    const newGrid = produce(grid, (gridCopy) => {
+                      gridCopy[rowIdx][colIdx] = grid[rowIdx][colIdx] ? 0 : 1;
+                    });
+                    setGrid(newGrid);
+                  }
+                }}
+              />
+            ))
+          )}
+        </div>
+        {error && <div style={{ color: "white", marginBottom:'5px', marginTop: "5px" }}>{error}</div>}
       </div>
     </div>
   );
