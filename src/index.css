@@ -3,7 +3,10 @@ body {
   font-family: 'Jersey 10';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #9bb5f4;
+  background-image: url('/public/background.jpg');
+  background-size: cover;
+  background-position: center;
+  
 }
 
 code {
