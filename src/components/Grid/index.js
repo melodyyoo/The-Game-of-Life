@@ -101,7 +101,7 @@ export default function Grid() {
       </div>
 
       <div style={{ marginBottom: "150px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr"}}>
           <Rules />
           <div style={{display:'flex', justifyContent:'center'}}>
             <div className="grid">
