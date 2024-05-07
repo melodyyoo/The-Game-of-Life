@@ -99,7 +99,8 @@ export default function Grid() {
               )}
             </div>
           </div>
-          <div>
+
+          <div style={{ display: "flex", alignItems: "center" }}>
             <button
               className="button"
               onClick={() => {
@@ -124,13 +125,13 @@ export default function Grid() {
                 setGrid(newGrid());
                 setRunning(false);
               }}
-              style={{marginRight:'100px'}}
+              style={{ marginRight: "100px" }}
             >
-              <i className="fa-solid fa-rotate-right" style={{color: "#5ab2cf"}}></i>
+              <i className="fa-solid fa-rotate-right" style={{ color: "#5ab2cf" }}></i>
             </button>
           </div>
         </div>
-        {error && <div style={{ color: "white", marginBottom: "5px", marginTop: "5px" }}>{error}</div>}
+            {error && <div style={{ color: "black", marginBottom: "5px", marginTop: "5px", fontSize:'20px'}}>{error}</div>}
       </div>
     </div>
   );
