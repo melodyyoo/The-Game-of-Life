@@ -16,7 +16,11 @@
 }
 
 .button{
-    height: 3rem;
+    height: 2rem;
+    width: 4rem;
     cursor: pointer;
     font-family: 'Jersey 10';
+    border-radius: 50px;
+    border-color: white;
+    margin: 0 10px;
 }

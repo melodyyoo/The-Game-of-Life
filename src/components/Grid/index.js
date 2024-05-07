@@ -67,43 +67,11 @@ export default function Grid() {
 
   return (
     <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
-      <div style={{ display: "flex" }}>
-        <h1 style={{ color: "white" }}>THE GAME OF LIFE</h1>
-        <div>
-          <button
-            className="button"
-            onClick={() => {
-              setRunning(!running);
-              if (!running) {
-                setError("");
-                runningRef.current = true;
-                runSimulation();
-              }
-            }}
-          >
-            {running ? (
-              <i class="fa-solid fa-pause" style={{ color: "#9bb5f4" }} />
-            ) : (
-              <i class="fa-solid fa-play" style={{ color: "#9bb5f4" }} />
-            )}
-          </button>
-          <button
-            className="button"
-            onClick={() => {
-              setError("");
-              setGrid(newGrid());
-              setRunning(false);
-            }}
-          >
-            Reset
-          </button>
-        </div>
-      </div>
-
+      <h1 style={{ color: "white" }}>THE GAME OF LIFE</h1>
       <div style={{ marginBottom: "150px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr"}}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr" }}>
           <Rules />
-          <div style={{display:'flex', justifyContent:'center'}}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <div className="grid">
               {grid.map((rows, rowIdx) =>
                 rows.map((col, colIdx) => (
@@ -131,7 +99,36 @@ export default function Grid() {
               )}
             </div>
           </div>
-          <div></div>
+          <div>
+            <button
+              className="button"
+              onClick={() => {
+                setRunning(!running);
+                if (!running) {
+                  setError("");
+                  runningRef.current = true;
+                  runSimulation();
+                }
+              }}
+            >
+              {running ? (
+                <i class="fa-solid fa-pause" style={{ color: "#5ab2cf" }} />
+              ) : (
+                <i class="fa-solid fa-play" style={{ color: "#5ab2cf" }} />
+              )}
+            </button>
+            <button
+              className="button"
+              onClick={() => {
+                setError("");
+                setGrid(newGrid());
+                setRunning(false);
+              }}
+              style={{marginRight:'100px'}}
+            >
+              <i className="fa-solid fa-rotate-right" style={{color: "#5ab2cf"}}></i>
+            </button>
+          </div>
         </div>
         {error && <div style={{ color: "white", marginBottom: "5px", marginTop: "5px" }}>{error}</div>}
       </div>
