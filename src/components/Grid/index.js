@@ -63,7 +63,7 @@ export default function Grid() {
     });
 
     setTimeout(runSimulation, 500);
-  }, []);
+  },[]);
 
   return (
     <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
