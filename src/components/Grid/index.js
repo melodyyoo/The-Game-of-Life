@@ -76,6 +76,8 @@ export default function Grid() {
               {grid.map((rows, rowIdx) =>
                 rows.map((col, colIdx) => (
                   <div
+                    aria-label='cell'
+                    data-testid={`cell-${rowIdx}-${colIdx}`}
                     key={`${rowIdx}-${colIdx}`}
                     style={{
                       width: 20,
@@ -102,6 +104,7 @@ export default function Grid() {
 
           <div style={{ display: "flex", alignItems: "center" }}>
             <button
+              aria-label="Run Simulation Button"
               className="button"
               onClick={() => {
                 setRunning(!running);
@@ -113,12 +116,13 @@ export default function Grid() {
               }}
             >
               {running ? (
-                <i class="fa-solid fa-pause" style={{ color: "#5ab2cf" }} />
+                <i className="fa-solid fa-pause" aria-label="Pause Simulation" style={{ color: "#5ab2cf" }} />
               ) : (
-                <i class="fa-solid fa-play" style={{ color: "#5ab2cf" }} />
+                <i className="fa-solid fa-play" aria-label="Play Simulation" style={{ color: "#5ab2cf" }} />
               )}
             </button>
             <button
+              aria-label="Reset Button"
               className="button"
               onClick={() => {
                 setError("");
