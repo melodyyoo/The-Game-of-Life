@@ -1,0 +1,21 @@
+.rules-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .rules-container {
+    margin-left: 3rem;
+  }
+}
+
+.rules-title {
+  text-decoration: underline;
+  color: white;
+}
+
+.rules-list li {
+  color: white;
+  margin-bottom: 10px;
+}
