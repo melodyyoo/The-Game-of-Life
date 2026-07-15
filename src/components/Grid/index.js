@@ -63,7 +63,7 @@ export default function Grid() {
     });
 
     setTimeout(runSimulation, 500);
-  },[]);
+  },[operations]);
 
   return (
     <div className="grid-container">
