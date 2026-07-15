@@ -1,22 +1,23 @@
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./Grid.css";
 import { produce } from "immer";
 import Rules from "../Rules";
 
-export default function Grid() {
-  const numRows = 20;
-  const numCols = 20;
+const numRows = 20;
+const numCols = 20;
 
-  const operations = [
-    [0, 1],
-    [0, -1],
-    [-1, -1],
-    [1, -1],
-    [-1, 1],
-    [1, 1],
-    [-1, 0],
-    [1, 0],
-  ];
+const operations = [
+  [0, 1],
+  [0, -1],
+  [-1, -1],
+  [1, -1],
+  [-1, 1],
+  [1, 1],
+  [-1, 0],
+  [1, 0],
+];
+
+export default function Grid() {
 
   const newGrid = () => {
     const rows = [];
@@ -35,7 +36,7 @@ export default function Grid() {
   const runningRef = useRef(running);
   runningRef.current = running;
 
-  const runSimulation = useCallback(() => {
+  const runSimulation = () => {
     if (!runningRef.current) {
       return;
     }
@@ -63,7 +64,7 @@ export default function Grid() {
     });
 
     setTimeout(runSimulation, 500);
-  },[operations]);
+  };
 
   return (
     <div className="grid-container">
