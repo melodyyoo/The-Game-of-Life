@@ -66,12 +66,14 @@ export default function Grid() {
   },[]);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
-      <h1 style={{ color: "white" }}>THE GAME OF LIFE</h1>
-      <div style={{ marginBottom: "150px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr" }}>
-          <Rules />
-          <div style={{ display: "flex", justifyContent: "center" }}>
+    <div className="grid-container">
+      <h1 className="grid-title">THE GAME OF LIFE</h1>
+      <div className="grid-content">
+        <div className="grid-layout">
+          <div className="rules-section">
+            <Rules />
+          </div>
+          <div className="grid-wrapper">
             <div className="grid">
               {grid.map((rows, rowIdx) =>
                 rows.map((col, colIdx) => (
@@ -79,12 +81,7 @@ export default function Grid() {
                     aria-label='cell'
                     data-testid={`cell-${rowIdx}-${colIdx}`}
                     key={`${rowIdx}-${colIdx}`}
-                    style={{
-                      width: 20,
-                      height: 20,
-                      backgroundColor: grid[rowIdx][colIdx] ? "#FFFF96" : undefined,
-                      border: "solid 1px #387DCF",
-                    }}
+                    className={`cell ${grid[rowIdx][colIdx] ? "cell--alive" : ""}`}
                     onClick={() => {
                       if (running) {
                         setError("OOPS! PLEASE PAUSE THE GAME TO CLICK ON MORE CELLS");
@@ -102,7 +99,7 @@ export default function Grid() {
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div className="button-container">
             <button
               aria-label="Run Simulation Button"
               className="button"
@@ -123,19 +120,18 @@ export default function Grid() {
             </button>
             <button
               aria-label="Reset Button"
-              className="button"
+              className="button reset-button"
               onClick={() => {
                 setError("");
                 setGrid(newGrid());
                 setRunning(false);
               }}
-              style={{ marginRight: "100px" }}
             >
               <i className="fa-solid fa-rotate-right" style={{ color: "#5ab2cf" }}></i>
             </button>
           </div>
         </div>
-            {error && <div style={{ color: "black", marginBottom: "5px", marginTop: "5px", fontSize:'20px'}}>{error}</div>}
+            {error && <div className="error-message">{error}</div>}
       </div>
     </div>
   );

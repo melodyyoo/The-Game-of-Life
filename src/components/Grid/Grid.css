@@ -1,26 +1,168 @@
-.grid{
-    display: grid;
-    grid-template-columns: repeat(20, 20px);
-    cursor: pointer;
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  padding: 1rem;
 }
 
-.cell{
-    width: 30px;
-    height: 30px;
-    background-color: white;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
+.grid-title {
+  color: white;
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.grid-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  flex: 1;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+}
+
+.grid-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(20, 20px);
+  cursor: pointer;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: solid 1px #387dcf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.cell--alive {
+  background-color: #ffff96;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  height: 2rem;
+  width: 4rem;
+  cursor: pointer;
+  font-family: 'Jersey 10';
+  border-radius: 50px;
+  border-color: white;
+  margin: 0 10px;
+}
+
+.reset-button {
+  margin-right: 100px;
+}
+
+.rules-section > div {
+  margin-left: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.error-message {
+  color: black;
+  margin: 5px 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    padding: 0.75rem;
     justify-content: center;
-    cursor: pointer;
-}
+    gap: 0.75rem;
+  }
 
-.button{
-    height: 2rem;
-    width: 4rem;
-    cursor: pointer;
-    font-family: 'Jersey 10';
-    border-radius: 50px;
-    border-color: white;
-    margin: 0 10px;
+  .grid-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .grid-content {
+    margin-bottom: 0;
+  }
+
+  .grid-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .grid-wrapper {
+    order: 2;
+    width: 100%;
+  }
+
+  .button-container {
+    order: 3;
+  }
+
+  .rules-section {
+    order: 4;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+  }
+
+  .rules-section > div {
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .rules-section ol {
+    padding-left: 1.25rem;
+    text-align: left;
+  }
+
+  .grid {
+    grid-template-columns: repeat(20, 1fr);
+    width: min(calc(100vw - 1.5rem), 400px);
+    max-width: 100%;
+  }
+
+  .cell {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .reset-button {
+    margin-right: 0;
+  }
+
+  .error-message {
+    font-size: 16px;
+    padding: 0 0.5rem;
+  }
 }

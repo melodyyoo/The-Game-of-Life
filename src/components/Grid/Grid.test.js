@@ -7,11 +7,11 @@ describe('Grid component', ()=>{
         render(<Grid/>);
         const cell = screen.getByTestId('cell-0-0');
 
-        expect(cell).not.toHaveStyle(`backgroundColor: #FFFF96`);
+        expect(cell).not.toHaveClass('cell--alive');
 
         fireEvent.click(cell);
 
-        expect(cell).toHaveStyle(`backgroundColor: #FFFF96`)
+        expect(cell).toHaveClass('cell--alive')
     })
 
     test('play button changes to pause onClick', ()=>{
@@ -80,11 +80,11 @@ describe('Grid component', ()=>{
             await new Promise(r=>setTimeout(r, 1000));
         })
 
-        expect(targetCell).not.toHaveStyle(`backgroundColor: #FFFF96`)
-        expect(neighborCell1).toHaveStyle(`backgroundColor: #FFFF96`)
-        expect(neighborCell2).toHaveStyle(`backgroundColor: #FFFF96`)
-        expect(neighborCell3).toHaveStyle(`backgroundColor: #FFFF96`)
-        expect(neighborCell4).toHaveStyle(`backgroundColor: #FFFF96`)
+        expect(targetCell).not.toHaveClass('cell--alive')
+        expect(neighborCell1).toHaveClass('cell--alive')
+        expect(neighborCell2).toHaveClass('cell--alive')
+        expect(neighborCell3).toHaveClass('cell--alive')
+        expect(neighborCell4).toHaveClass('cell--alive')
 
 
     })
@@ -107,7 +107,7 @@ describe('Grid component', ()=>{
             await new Promise(r=>setTimeout(r, 1000));
         })
 
-        expect(targetCell).toHaveStyle(`backgroundColor: rgb(255, 255, 150)`)
+        expect(targetCell).toHaveClass('cell--alive')
     })
 
     test('live cell with three live neighbors lives', async()=>{
